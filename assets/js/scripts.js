@@ -16,11 +16,12 @@ function getAllWeatherData(cityCoordinates) {
   // Insert the latitude and longitude into the request URL
   let citySpecificApi = allWeatherDataApi.replace('{lat}', cityCoordinates.lat);
   citySpecificApi = citySpecificApi.replace('{lon}', cityCoordinates.lon);
-  
+  // grabs info from API 
   return fetch(citySpecificApi)
   .then(function (response) {
       return response.json();
   }) 
+  // turns it into an object and allows it to be accessible 
   .then(function (data) {
       return data;
   });
@@ -39,19 +40,28 @@ function getFiveDayForecast(cityName) {
     return data;
   });
 }
-
+// get city name from search bar
+let cityName = "Denver"
+// This whole function runs when the user clicks search
 // stores API information in localstorage/in console.log
-getFiveDayForecast("Denver").then(function(forecast) {
+getFiveDayForecast(cityName).then(function(forecast) {
   getAllWeatherData(forecast.city.coord).then(function(currentWeather){
-    // Store result in localStorage
-    let storedForecast = {forecast, currentWeather}
+    let jsonData = localStorage.getItem('storedCities')
+    // || means or, so if nothing in stored cites, show just empty list
+    let storedCites = JSON.parse(jsonData || [])
+    // push adds a city name to the array
+    storedCites.push(cityName)
     // Display result
     console.log(forecast);
     console.log(currentWeather);
+    localStorage.setItem('storedCities', JSON.stringify(storedCites));
   });
 });
 
-
+// to do
+// When we load the page
+// Go get stored cites from localStorage and
+// then add them to that list on the page
 
 // Auto complete for search bar -- not currently working, come back to this later
 
