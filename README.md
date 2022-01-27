@@ -1,7 +1,10 @@
 # Weather Dashboard
 By: Erna Lukač
 
-# Summary/Description
+# Summary/Description/Built With
+HTML, CSS, and JavaScript
+
+# User Story
 - AS A traveler
 - I WANT to see the weather outlook for multiple cities
 - SO THAT I can plan a trip accordingly
@@ -22,9 +25,6 @@ THEN I am again presented with current and future conditions for that city
 
 # Deployed Link
 https://ooernica.github.io/6WeekHomeworkWeatherDashboard/
-
-# Built With
-HTML, CSS, and JavaScript
 
 # Citations
 
