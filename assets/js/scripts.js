@@ -98,6 +98,8 @@ let initStoredCities = localStorage.getItem('storedCities')
 initStoredCities = JSON.parse(initStoredCities || '[]')
 populateList(initStoredCities);
 
+// adding other summary items, eventually will need to change temp 
+// from Kelvin to F 
 function populateSummary(data, weatherData) {
   let cityName = data.city.name
   let temp = weatherData.current.temp
