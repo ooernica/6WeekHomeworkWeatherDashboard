@@ -21,14 +21,14 @@
         <div class="row">
             <div class="col-3">
             <h2 class= >Search for a City:</h2>
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-primary my-3 mr-sm-0 col-12" type="submit">Search</button>
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" id="searchBar" aria-label="Search">
+                <button class="btn btn-outline-primary my-3 mr-sm-0 col-12" id="searchBtn" type="submit">Search</button>
             </div>
 
-            <div class="card col-9" style="width: 18rem;">
+            <div id="citySummary" class="card col-9" style="width: 18rem;">
                 <div class="card-body">
-                  <h5 class="card-title">City Name</h5>
-                  <p class="card-text temp" id ="BLA"></p>
+                  <h5 class="card-title" id="title">City Name</h5>
+                  <p class="card-text temp" id="temp"></p>
                   <p class="card-text wind"></p>
                   <p class="card-text humidity"></p>
                   <p class="card-text uvIndex"></p>
@@ -41,14 +41,7 @@
     <div>
         <div class="row">
             <div id="list-example" class="list-group col-3">
-                <a class="list-group-item list-group-item-action text-center" href="">Austin</a>
-                <a class="list-group-item list-group-item-action text-center" href="">Chicago</a>
-                <a class="list-group-item list-group-item-action text-center" href="">New York</a>
-                <a class="list-group-item list-group-item-action text-center" href="">Orlando</a>
-                <a class="list-group-item list-group-item-action text-center" href="">San Francisco</a>
-                <a class="list-group-item list-group-item-action text-center" href="">Seattle</a>
-                <a class="list-group-item list-group-item-action text-center" href="">Denver</a>
-                <a class="list-group-item list-group-item-action text-center" href="">Atlanta</a>
+
             </div>
 
 

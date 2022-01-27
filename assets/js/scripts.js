@@ -40,23 +40,31 @@ function getFiveDayForecast(cityName) {
     return data;
   });
 }
-// get city name from search bar
-let cityName = "Denver"
-// This whole function runs when the user clicks search
-// stores API information in localstorage/in console.log
-getFiveDayForecast(cityName).then(function(forecast) {
-  getAllWeatherData(forecast.city.coord).then(function(currentWeather){
-    let jsonData = localStorage.getItem('storedCities')
-    // || means or, so if nothing in stored cites, show just empty list
-    let storedCites = JSON.parse(jsonData || [])
-    // push adds a city name to the array
-    storedCites.push(cityName)
-    // Display result
-    console.log(forecast);
-    console.log(currentWeather);
-    localStorage.setItem('storedCities', JSON.stringify(storedCites));
+
+document.querySelector('#searchBtn').addEventListener('click', function() {
+  
+  // get city name from search bar
+  let cityName = document.querySelector('#searchBar').value;
+  // This whole function runs when the user clicks search
+  // stores API information in localstorage/in console.log
+  getFiveDayForecast(cityName).then(function(forecast) {
+    getAllWeatherData(forecast.city.coord).then(function(currentWeather){
+      let jsonData = localStorage.getItem('storedCities')
+      console.log(jsonData);
+      // || means or, so if nothing in stored cites, show just empty list
+      let storedCities = JSON.parse(jsonData || '[]')
+      // push adds a city name to the array
+      storedCities.push(cityName)
+      // Display result
+      console.log(forecast);
+      console.log(currentWeather);
+      localStorage.setItem('storedCities', JSON.stringify(storedCities));
+      populateList(storedCities)
+      document.querySelector('#searchBar').value = '';
+      populateSummary(forecast,currentWeather)
+    });
   });
-});
+})
 
 // to do
 // When we load the page
@@ -75,3 +83,24 @@ getFiveDayForecast(cityName).then(function(forecast) {
 //         source: availableTags
 //     });
 // )};
+
+function populateList(cities) {
+  document.getElementById('list-example').innerHTML = ''
+  for (let i = 0; i < cities.length; i++) {
+    let city = cities[i]
+    document.getElementById('list-example')
+    .innerHTML += `
+      <a class="list-group-item list-group-item-action text-center" href="">${city}</a>
+    `
+  }
+}
+let initStoredCities = localStorage.getItem('storedCities')
+initStoredCities = JSON.parse(initStoredCities || '[]')
+populateList(initStoredCities);
+
+function populateSummary(data, weatherData) {
+  let cityName = data.city.name
+  let temp = weatherData.current.temp
+  document.querySelector('#title').innerHTML=cityName
+  document.querySelector('#temp').innerHTML='Temp:' + temp
+}
