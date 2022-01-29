@@ -50,6 +50,13 @@ document.querySelector('#searchBtn').addEventListener('click', function(event) {
   populateWeatherData(cityName);
 });
 
+document.addEventListener('click', function(event) {
+  if (event.target.matches('.city')) {
+    console.log(`Event: ${event}`)
+    populateWeatherData(event.target.textContent);
+  }
+});
+
 function populateWeatherData(cityName) {
   getFiveDayForecast(cityName).then(function(forecast) {
     getAllWeatherData(forecast.city.coord).then(function(currentWeather){
@@ -69,13 +76,6 @@ function populateWeatherData(cityName) {
     });
   });
 };
-
-document.addEventListener('click', function(event) {
-  if (event.target.matches('.city')) {
-    console.log(`Event: ${event}`)
-    populateWeatherData(event.target.textContent);
-  }
-});
 
 function populateList(cities) {
   document.getElementById('list-example').innerHTML = ''
