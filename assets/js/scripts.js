@@ -64,8 +64,11 @@ function populateWeatherData(cityName) {
       console.log(jsonData);
       // || means or, so if nothing in stored cites, show just empty list
       let storedCities = JSON.parse(jsonData || '[]')
+      
+      // TODO: Check if the city is already in the list before adding it
       // push adds a city name to the array
       storedCities.push(cityName)
+
       // Display result
       console.log(forecast);
       console.log(currentWeather);
