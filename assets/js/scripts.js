@@ -25,7 +25,7 @@ function getAllWeatherData(cityCoordinates) {
   .then(function (data) {
       return data;
   });
-}
+};
 
 // function to call the API for the 5 day forecast
 function getFiveDayForecast(cityName) {
@@ -39,7 +39,7 @@ function getFiveDayForecast(cityName) {
     // console.log(data);
     return data;
   });
-}
+};
 
 document.querySelector('#searchBtn').addEventListener('click', function() {
   
@@ -47,6 +47,10 @@ document.querySelector('#searchBtn').addEventListener('click', function() {
   let cityName = document.querySelector('#searchBar').value;
   // This whole function runs when the user clicks search
   // stores API information in localstorage/in console.log
+  populateWeatherData(cityName);
+});
+
+function populateWeatherData(cityName) {
   getFiveDayForecast(cityName).then(function(forecast) {
     getAllWeatherData(forecast.city.coord).then(function(currentWeather){
       let jsonData = localStorage.getItem('storedCities')
@@ -64,7 +68,36 @@ document.querySelector('#searchBtn').addEventListener('click', function() {
       populateSummary(forecast,currentWeather)
     });
   });
-})
+};
+
+function populateList(cities) {
+  document.getElementById('list-example').innerHTML = ''
+  for (let i = 0; i < cities.length; i++) {
+    let city = cities[i]
+    document.getElementById('list-example')
+    .innerHTML += `
+      <a class="list-group-item list-group-item-action text-center" href="">${city}</a>
+    `
+  }
+};
+
+// adding other summary items, eventually will need to change temp 
+// from Kelvin to F 
+function populateSummary(data, weatherData) {
+  let cityName = data.city.name
+  let temp = weatherData.current.temp
+  document.querySelector('#title').innerHTML=cityName
+  document.querySelector('#temp').innerHTML='Temp: ' + temp
+};
+
+function main() {
+  let initStoredCities = localStorage.getItem('storedCities')
+  initStoredCities = JSON.parse(initStoredCities || '[]')
+  populateList(initStoredCities);
+};
+
+main();
+
 
 // to do
 // When we load the page
@@ -83,31 +116,3 @@ document.querySelector('#searchBtn').addEventListener('click', function() {
 //         source: availableTags
 //     });
 // )};
-
-function populateList(cities) {
-  document.getElementById('list-example').innerHTML = ''
-  for (let i = 0; i < cities.length; i++) {
-    let city = cities[i]
-    document.getElementById('list-example')
-    .innerHTML += `
-      <a class="list-group-item list-group-item-action text-center" href="">${city}</a>
-    `
-  }
-}
-
-// adding other summary items, eventually will need to change temp 
-// from Kelvin to F 
-function populateSummary(data, weatherData) {
-  let cityName = data.city.name
-  let temp = weatherData.current.temp
-  document.querySelector('#title').innerHTML=cityName
-  document.querySelector('#temp').innerHTML='Temp: ' + temp
-}
-
-function main() {
-  let initStoredCities = localStorage.getItem('storedCities')
-  initStoredCities = JSON.parse(initStoredCities || '[]')
-  populateList(initStoredCities);
-}
-
-main();
