@@ -41,7 +41,7 @@ function getFiveDayForecast(cityName) {
   });
 };
 
-document.querySelector('#searchBtn').addEventListener('click', function() {
+document.querySelector('#searchBtn').addEventListener('click', function(event) {
   
   // get city name from search bar
   let cityName = document.querySelector('#searchBar').value;
@@ -70,14 +70,21 @@ function populateWeatherData(cityName) {
   });
 };
 
+document.addEventListener('click', function(event) {
+  if (event.target.matches('.city')) {
+    console.log(`Event: ${event}`)
+    populateWeatherData(event.target.textContent);
+  }
+});
+
 function populateList(cities) {
   document.getElementById('list-example').innerHTML = ''
   for (let i = 0; i < cities.length; i++) {
     let city = cities[i]
     document.getElementById('list-example')
     .innerHTML += `
-      <a class="list-group-item list-group-item-action text-center" href="">${city}</a>
-    `
+      <button class="list-group-item list-group-item-action text-center city">${city}</button>
+    `;
   }
 };
 
