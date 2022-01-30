@@ -58,6 +58,7 @@ document.addEventListener('click', function(event) {
 });
 
 function populateWeatherData(cityName) {
+  cityName = cityName.trim()
   getFiveDayForecast(cityName).then(function(forecast) {
     getAllWeatherData(forecast.city.coord).then(function(currentWeather){
       let jsonData = localStorage.getItem('storedCities')
@@ -65,9 +66,19 @@ function populateWeatherData(cityName) {
       // || means or, so if nothing in stored cites, show just empty list
       let storedCities = JSON.parse(jsonData || '[]')
       
-      // TODO: Check if the city is already in the list before adding it
       // push adds a city name to the array
-      storedCities.push(cityName)
+      let shouldAddCity = true
+      for (let i = 0; i < storedCities.length; i++) {
+        if (storedCities[i] === cityName) {
+          // Found city already in the list
+          shouldAddCity = false;
+        }
+      }
+      
+      if (shouldAddCity === true) {
+        storedCities.push(cityName)
+      }
+
 
       // Display result
       console.log(forecast);
