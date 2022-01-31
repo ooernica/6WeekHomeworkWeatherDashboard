@@ -87,6 +87,7 @@ function populateWeatherData(cityName) {
       populateList(storedCities)
       document.querySelector('#searchBar').value = '';
       populateSummary(forecast,currentWeather)
+      populateFiveDayForecast(currentWeather);
     });
   });
 };
@@ -102,6 +103,7 @@ function populateList(cities) {
   }
 };
 
+
 // adding other summary items, eventually will need to change temp 
 // from Kelvin to F 
 function populateSummary(data, weatherData) {
@@ -110,6 +112,40 @@ function populateSummary(data, weatherData) {
   document.querySelector('#title').innerHTML=cityName
   document.querySelector('#temp').innerHTML='Temp: ' + temp
 };
+
+function populateFiveDayForecast(weatherData) {
+  let fiveDayForecast = weatherData.daily
+  for (let i = 0; i < 5; i++) {
+    let forecast = fiveDayForecast[i]
+    let date = new Date(forecast.dt * 1000)
+    let dateString = ""
+    if (date.getMonth() < 10) {
+      dateString += '0' + (date.getMonth() + 1);
+    } else {
+      dateString += (date.getMonth() + 1);
+    }
+    dateString += "/"
+    if (date.getDate() < 10) {
+      dateString += '0' + date.getDate();
+    } else {
+      dateString += date.getDate();
+    }
+    dateString += "/"
+    dateString += date.getFullYear()
+    document.querySelector('#fiveDayForecastCard').innerHTML += `
+    <div class="card col-2 ml-4 mr-4" style="width: 18rem;">
+    <div class="card-body">
+    <h5 class="card-title">${dateString}</h5>
+    <h6 class="card-subtitle mb-2 text-muted"><img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png" width="50px" height="50px" alt=""></img></h6>
+    <p class="card-text">Temp Placeholder</p>
+    <p class="card-text">Wind Placeholder</p>
+    <p class="card-text">Humidity Placeholder</p>
+    </div>
+    `;
+  }
+}
+
+
 
 function main() {
   let initStoredCities = localStorage.getItem('storedCities')
