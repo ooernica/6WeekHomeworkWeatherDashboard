@@ -156,12 +156,6 @@ function main() {
 
 main();
 
-
-// to do
-// When we load the page
-// Go get stored cites from localStorage and
-// then add them to that list on the page
-
 // Auto complete for search bar -- not currently working, come back to this later
 
 // $(function () {
