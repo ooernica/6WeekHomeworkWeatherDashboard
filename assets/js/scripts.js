@@ -134,12 +134,13 @@ function populateFiveDayForecast(weatherData) {
     dateString += date.getFullYear()
     document.querySelector('#fiveDayForecastCard').innerHTML += `
     <div class="card col-2 ml-4 mr-4" style="width: 18rem;">
-    <div class="card-body">
-    <h5 class="card-title">${dateString}</h5>
-    <h6 class="card-subtitle mb-2 text-muted"><img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png" width="50px" height="50px" alt=""></img></h6>
-    <p class="card-text">Temp Placeholder</p>
-    <p class="card-text">Wind Placeholder</p>
-    <p class="card-text">Humidity Placeholder</p>
+      <div class="card-body">
+        <h5 class="card-title">${dateString}</h5>
+        <h6 class="card-subtitle mb-2 text-muted"><img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png" width="50px" height="50px" alt=""></img></h6>
+        <p class="card-text">Temp: ${forecast.temp}</p>
+        <p class="card-text">Wind: ${forecast.wind_speed}MPH</p>
+        <p class="card-text">Humidity: ${forecast.humidity}%</p>
+      </div>
     </div>
     `;
   }
