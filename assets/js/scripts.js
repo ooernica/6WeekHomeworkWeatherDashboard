@@ -79,7 +79,6 @@ function populateWeatherData(cityName) {
         storedCities.push(cityName)
       }
 
-
       // Display result
       console.log(forecast);
       console.log(currentWeather);
@@ -102,7 +101,6 @@ function populateList(cities) {
     `;
   }
 };
-
 
 // adding other summary items, eventually will need to change temp 
 // from Kelvin to F 
@@ -145,8 +143,6 @@ function populateFiveDayForecast(weatherData) {
     `;
   }
 }
-
-
 
 function main() {
   let initStoredCities = localStorage.getItem('storedCities')
