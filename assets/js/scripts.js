@@ -50,7 +50,7 @@ document.querySelector('#searchBtn').addEventListener('click', function(event) {
   populateWeatherData(cityName);
 });
 
-document.addEventListener('click', function(event) {
+document.addEventListener('click', function(event) { 
   if (event.target.matches('.city')) {
     console.log(`Event: ${event}`)
     populateWeatherData(event.target.textContent);
