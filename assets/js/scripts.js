@@ -135,7 +135,7 @@ function populateFiveDayForecast(weatherData) {
       <div class="card-body">
         <h6 class="card-title">${dateString}</h5>
         <h6 class="card-subtitle mb-2 text-muted"><img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png" width="50px" height="50px" alt=""></img></h6>
-        <p class="card-text">Temp: ${forecast.temp}</p>
+        <p class="card-text">Temp: ${forecast.temp.max}</p>
         <p class="card-text">Wind: ${forecast.wind_speed}MPH</p>
         <p class="card-text">Humidity: ${forecast.humidity}%</p>
       </div>
