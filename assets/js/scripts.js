@@ -139,7 +139,7 @@ function populateFiveDayForecast(weatherData) {
         <p class="card-text">Temp: ${tempConverter(forecast.temp.max)}℉</p>
         <p class="card-text">Wind: ${forecast.wind_speed}MPH</p>
         <p class="card-text">Humidity: ${forecast.humidity}%</p>
-      </div>
+      </div>   
     </div>
     `;
   }
@@ -157,16 +157,3 @@ function tempConverter(kelvinTemp) {
 }
 
 main();
-
-// Auto complete for search bar -- not currently working, come back to this later
-
-// $(function () {
-//     let availableTags = [
-//         "Denver",
-//         "New York",
-//         "Seattle",
-//     ];
-//     $(".autocomplete").autocomplete({
-//         source: availableTags
-//     });
-// )};
