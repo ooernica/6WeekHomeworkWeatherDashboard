@@ -1,3 +1,33 @@
-#uvIndex {
-    background-color: #fff;
+h1 {
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgb(76, 84, 201)0%, rgb(78, 78, 138) 35%, rgba(9,9,121,1) 100%);
+    color: white;
+    font-weight: bold;
+}
+
+#citySummary {
+    border-top: 1px solid;
+    border-color: black;
+}
+
+#fiveCard {
+    background: rgb(54, 41, 126);
+    color: white;
+    border-top: 1px solid;
+    border-color: black;
+}
+
+h2 {
+    font-weight: bold;
+}
+
+#citySave {
+    background: rgb(187, 185, 185);
+    color: black;
+    border-radius: 5px;
+}
+
+.card-title {
+    font-size: 25px;
+    font-weight: bold;
 }

@@ -97,7 +97,7 @@ function populateList(cities) {
     let city = cities[i]
     document.getElementById('list-example')
       .innerHTML += `
-      <button class="list-group-item list-group-item-action text-center city">${city}</button>
+      <button class="list-group-item list-group-item-action text-center city my-2" id="citySave">${city}</button>
     `;
   }
 };
@@ -121,7 +121,7 @@ function populateFiveDayForecast(weatherData) {
   for (let i = 1; i < 6; i++) {
     let forecast = fiveDayForecast[i]
     document.querySelector('#fiveDayForecastCard').innerHTML += `
-    <div class="card col-2 ml-3 mr-3" style="width: 18rem;">
+    <div class="card col-2 ml-3 mr-3" style="width: 18rem;" id="fiveCard">
       <div class="card-body">
         <h6 class="card-title">${formatDate(forecast.dt)}</h5>
         <h6 class="card-subtitle mb-2 text-muted"><img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png" width="50px" height="50px" alt=""></img></h6>
