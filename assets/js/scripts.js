@@ -114,7 +114,7 @@ function populateSummary(data, weatherData) {
 function populateFiveDayForecast(weatherData) {
   let fiveDayForecast = weatherData.daily
   document.querySelector('#fiveDayForecastCard').innerHTML = ''
-  for (let i = 0; i < 5; i++) {
+  for (let i = 1; i < 6; i++) {
     let forecast = fiveDayForecast[i]
     let date = new Date(forecast.dt * 1000)
     let dateString = ""
