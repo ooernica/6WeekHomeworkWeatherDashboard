@@ -112,6 +112,7 @@ function populateSummary(data, weatherData) {
   document.querySelector('#wind').innerHTML = 'Wind: ' + weatherData.current.wind_speed + ' MPH'
   document.querySelector('#humidity').innerHTML = 'Humidity: ' + weatherData.current.humidity + "%"
   document.querySelector('#uvIndex').innerHTML = 'UV Index: ' + weatherData.current.uvi
+  uvReader(weatherData.current.uvi)
 };
 
 function populateFiveDayForecast(weatherData) {
@@ -162,5 +163,15 @@ function tempConverter(kelvinTemp) {
   let temp = ((kelvinTemp - 273.15) * 1.8) + 32;
   return Math.round(temp)
 }
+
+function uvReader(uv){
+  if (uv < 2) {
+    document.querySelector('#uvIndex').style.backgroundColor = 'green'
+  } else if (uv < 7) {
+    document.querySelector('#uvIndex').style.backgroundColor = 'orange'
+  } else {
+    document.querySelector('#uvIndex').style.backgroundColor = 'red'
+  }
+}; 
 
 main();
