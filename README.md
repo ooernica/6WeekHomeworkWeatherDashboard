@@ -29,3 +29,5 @@ https://ooernica.github.io/6WeekHomeworkWeatherDashboard/
 # Citations
 
 # Screenshot
+
+![image](https://user-images.githubusercontent.com/91104984/155055707-1bf7d610-7a33-497a-8349-5e7bda178212.png)
