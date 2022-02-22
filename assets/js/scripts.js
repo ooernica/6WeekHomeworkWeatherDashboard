@@ -18,31 +18,31 @@ function getAllWeatherData(cityCoordinates) {
   citySpecificApi = citySpecificApi.replace('{lon}', cityCoordinates.lon);
   // grabs info from API 
   return fetch(citySpecificApi)
-  .then(function (response) {
+    .then(function (response) {
       return response.json();
-  }) 
-  // turns it into an object and allows it to be accessible 
-  .then(function (data) {
+    })
+    // turns it into an object and allows it to be accessible 
+    .then(function (data) {
       return data;
-  });
+    });
 };
 
 // function to call the API for the 5 day forecast
 function getFiveDayForecast(cityName) {
   // Insert the city name into the request URL
-  let citySpecificApi = fiveDayForecastApi.replace('{city name}', cityName) 
+  let citySpecificApi = fiveDayForecastApi.replace('{city name}', cityName)
   return fetch(citySpecificApi)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    // console.log(data);
-    return data;
-  });
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      // console.log(data);
+      return data;
+    });
 };
 
-document.querySelector('#searchBtn').addEventListener('click', function(event) {
-  
+document.querySelector('#searchBtn').addEventListener('click', function (event) {
+
   // get city name from search bar
   let cityName = document.querySelector('#searchBar').value;
   // This whole function runs when the user clicks search
@@ -50,7 +50,7 @@ document.querySelector('#searchBtn').addEventListener('click', function(event) {
   populateWeatherData(cityName);
 });
 
-document.addEventListener('click', function(event) { 
+document.addEventListener('click', function (event) {
   if (event.target.matches('.city')) {
     console.log(`Event: ${event}`)
     populateWeatherData(event.target.textContent);
@@ -59,13 +59,13 @@ document.addEventListener('click', function(event) {
 
 function populateWeatherData(cityName) {
   cityName = cityName.trim()
-  getFiveDayForecast(cityName).then(function(forecast) {
-    getAllWeatherData(forecast.city.coord).then(function(currentWeather){
+  getFiveDayForecast(cityName).then(function (forecast) {
+    getAllWeatherData(forecast.city.coord).then(function (currentWeather) {
       let jsonData = localStorage.getItem('storedCities')
       console.log(jsonData);
       // || means or, so if nothing in stored cites, show just empty list
       let storedCities = JSON.parse(jsonData || '[]')
-      
+
       // push adds a city name to the array
       let shouldAddCity = true
       for (let i = 0; i < storedCities.length; i++) {
@@ -74,7 +74,7 @@ function populateWeatherData(cityName) {
           shouldAddCity = false;
         }
       }
-      
+
       if (shouldAddCity === true) {
         storedCities.push(cityName)
       }
@@ -85,7 +85,7 @@ function populateWeatherData(cityName) {
       localStorage.setItem('storedCities', JSON.stringify(storedCities));
       populateList(storedCities)
       document.querySelector('#searchBar').value = '';
-      populateSummary(forecast,currentWeather)
+      populateSummary(forecast, currentWeather)
       populateFiveDayForecast(currentWeather);
     });
   });
@@ -96,7 +96,7 @@ function populateList(cities) {
   for (let i = 0; i < cities.length; i++) {
     let city = cities[i]
     document.getElementById('list-example')
-    .innerHTML += `
+      .innerHTML += `
       <button class="list-group-item list-group-item-action text-center city">${city}</button>
     `;
   }
@@ -107,8 +107,11 @@ function populateList(cities) {
 function populateSummary(data, weatherData) {
   let cityName = data.city.name
   let temp = weatherData.current.temp
-  document.querySelector('#title').innerHTML=cityName
+  document.querySelector('#title').innerHTML = cityName + ` (${formatDate(weatherData.current.dt)}) <img src="http://openweathermap.org/img/wn/${weatherData.current.weather[0].icon}.png" width="50px" height="50px" alt=""></img>`
   document.querySelector('#temp').innerHTML='Temp: ' + tempConverter(temp) + '℉'
+  document.querySelector('#wind').innerHTML = 'Wind: ' + weatherData.current.wind_speed + ' MPH'
+  document.querySelector('#humidity').innerHTML = 'Humidity: ' + weatherData.current.humidity + "%"
+  document.querySelector('#uvIndex').innerHTML = 'UV Index: ' + weatherData.current.uvi
 };
 
 function populateFiveDayForecast(weatherData) {
@@ -116,28 +119,13 @@ function populateFiveDayForecast(weatherData) {
   document.querySelector('#fiveDayForecastCard').innerHTML = ''
   for (let i = 1; i < 6; i++) {
     let forecast = fiveDayForecast[i]
-    let date = new Date(forecast.dt * 1000)
-    let dateString = ""
-    if (date.getMonth() < 10) {
-      dateString += '0' + (date.getMonth() + 1);
-    } else {
-      dateString += (date.getMonth() + 1);
-    }
-    dateString += "/"
-    if (date.getDate() < 10) {
-      dateString += '0' + date.getDate();
-    } else {
-      dateString += date.getDate();
-    }
-    dateString += "/"
-    dateString += date.getFullYear()
     document.querySelector('#fiveDayForecastCard').innerHTML += `
     <div class="card col-2 ml-3 mr-3" style="width: 18rem;">
       <div class="card-body">
-        <h6 class="card-title">${dateString}</h5>
+        <h6 class="card-title">${formatDate(forecast.dt)}</h5>
         <h6 class="card-subtitle mb-2 text-muted"><img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png" width="50px" height="50px" alt=""></img></h6>
         <p class="card-text">Temp: ${tempConverter(forecast.temp.max)}℉</p>
-        <p class="card-text">Wind: ${forecast.wind_speed}MPH</p>
+        <p class="card-text">Wind: ${forecast.wind_speed} MPH</p>
         <p class="card-text">Humidity: ${forecast.humidity}%</p>
       </div>   
     </div>
@@ -151,8 +139,27 @@ function main() {
   populateList(initStoredCities);
 };
 
+function formatDate(secondsSinceEpoch) {
+  let date = new Date(secondsSinceEpoch * 1000)
+  let dateString = ""
+  if (date.getMonth() < 10) {
+    dateString += '0' + (date.getMonth() + 1);
+  } else {
+    dateString += (date.getMonth() + 1);
+  }
+  dateString += "/"
+  if (date.getDate() < 10) {
+    dateString += '0' + date.getDate();
+  } else {
+    dateString += date.getDate();
+  }
+  dateString += "/"
+  dateString += date.getFullYear()
+  return dateString;
+}
+
 function tempConverter(kelvinTemp) {
-  let temp = ((kelvinTemp-273.15)*1.8)+32;
+  let temp = ((kelvinTemp - 273.15) * 1.8) + 32;
   return Math.round(temp)
 }
 
